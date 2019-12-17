@@ -3,6 +3,7 @@ package net.cuddlebat.ftg.game;
 import net.cuddlebat.ftg.tile.Tile;
 import net.cuddlebat.ftg.tile.Tiles;
 import net.cuddlebat.ftg.util.Console;
+import net.cuddlebat.ftg.util.ConsoleGameUtils;
 
 public class GameGrid
 {
@@ -64,38 +65,27 @@ public class GameGrid
         
         char[] rowInd = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
-        System.out.print("  ");
-        for(int i = 0; i < getWidth(); i++)
-            System.out.printf(" %2d ", i+1);
-        System.out.println();
+        ConsoleGameUtils.drawColIndices(getWidth());
         
         for(int y = 0; y < getHeight(); y++)
         {
-            System.out.print("  ");
-            for(int x = 0; x < getWidth(); x++)
-                System.out.print("+---");
-            System.out.println("+");
+            ConsoleGameUtils.drawHorbar(getWidth());
             System.out.print(rowInd[y] + " ");
             for(int x = 0; x < getWidth(); x++)
                 System.out.print("| " + (uncovered[y][x] ? board[y][x] : '?') + " ");
             System.out.print("|");
             System.out.println(" " + rowInd[y]);
         }
-        System.out.print("  ");
-        for(int x = 0; x < getWidth(); x++)
-            System.out.print("+---");
-        System.out.println("+");
-
-        System.out.print("  ");
-        for(int i = 0; i < getWidth(); i++)
-            System.out.printf(" %2d ", i+1);
-        System.out.println();
+        ConsoleGameUtils.drawHorbar(getWidth());
+        ConsoleGameUtils.drawColIndices(getWidth());
     }
     
     public void renderAt(int x, int y)
     {
         Console.storeCursorPos();
-        Console.setCursorPos(2 * y + 3, 4 * x + 5);
+        final int xx = ConsoleGameUtils.consoleXFor(x);
+        final int yy = ConsoleGameUtils.consoleYFor(y);
+        Console.setCursorPos(yy, xx);
         System.out.println(getRenderStringAt(x, y));
         Console.restoreCursorPos();
     }

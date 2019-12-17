@@ -1,7 +1,5 @@
 package net.cuddlebat.ftg.opts;
 
-import joptsimple.OptionSpec;
-
 public class GameOpts
 {
     private int width;
@@ -12,8 +10,9 @@ public class GameOpts
     private int treeRate;
     private boolean legacy;
     private boolean help;
+    private boolean wasd;
     
-    public GameOpts(int width, int height, long seed, int moons, int treeRate, boolean legacy, boolean help)
+    public GameOpts(int width, int height, long seed, int moons, int treeRate, boolean legacy, boolean help, boolean wasd)
     {
         super();
         this.width = width;
@@ -23,6 +22,7 @@ public class GameOpts
         this.treeRate = treeRate;
         this.legacy = legacy;
         this.help = help;
+        this.wasd = wasd;
     }
 
     public int getWidth()
@@ -58,5 +58,10 @@ public class GameOpts
     public boolean isHelp()
     {
         return help;
+    }
+
+    public boolean isWasd()
+    {
+        return wasd;
     }
 }

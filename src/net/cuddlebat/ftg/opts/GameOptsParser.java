@@ -2,11 +2,9 @@ package net.cuddlebat.ftg.opts;
 
 import java.util.Arrays;
 
-import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
-import joptsimple.OptionSpecBuilder;
 
 public class GameOptsParser extends OptionParser
 {
@@ -17,6 +15,7 @@ public class GameOptsParser extends OptionParser
     private static final String TREE_RATE = "tree_rate";
     private static final String LEGACY = "legacy";
     private static final String HELP = "help";
+    private static final String WASD = "wasd";
     
     private OptionSpec<Integer> width;
     private OptionSpec<Integer> height;
@@ -26,6 +25,7 @@ public class GameOptsParser extends OptionParser
     private OptionSpec<Integer> treeRate;
     private OptionSpec<Void> legacy;
     private OptionSpec<Void> help;
+    private OptionSpec<Void> wasd;
     
     public GameOptsParser()
     {
@@ -41,6 +41,7 @@ public class GameOptsParser extends OptionParser
         treeRate = accepts(TREE_RATE, "Empty tiles have 1 in tree_rate chance to become christmas trees.")
             .withRequiredArg().ofType(Integer.class);
         legacy = accepts(LEGACY, "Play in highly compatible mode without escape sequences.");
+        wasd = accepts(WASD, "wasd (+enter) moves cursor; empty line uncovers");
         help = accepts(HELP, "Display help information.").forHelp();
     }
     
@@ -56,7 +57,8 @@ public class GameOptsParser extends OptionParser
         int treeRateVal = opts.valueOfOptional(treeRate).orElse(8);
         boolean legacyVal = opts.has(legacy);
         boolean helpVal = opts.has(help);
+        boolean wasdVal = opts.has(wasd);
         
-        return new GameOpts(widthVal, heightVal, seedVal, moonsVal, treeRateVal, legacyVal, helpVal);
+        return new GameOpts(widthVal, heightVal, seedVal, moonsVal, treeRateVal, legacyVal, helpVal, wasdVal);
     }
 }
